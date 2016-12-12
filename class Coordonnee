@@ -1,5 +1,7 @@
 package batailleNavale;
 
+import tp7.MatriceCarree;
+
 public class Coordonnee {
 	private int ligne;
 	private int colonne;
@@ -9,7 +11,7 @@ public class Coordonnee {
 	//
 	//*******************************************************************************//
 	
-	public Coordonnee(int ligne, int colonne) {
+	public Coordonnee(int colonne, int ligne) {
 		this.ligne=ligne;
 		this.colonne=colonne;
 	}
@@ -17,16 +19,18 @@ public class Coordonnee {
 		
 		String[] alphabeth={"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};
 	    int i =0;
-        ligne = Integer.parseInt(s.substring(1))+1;
         String colonneLettre = s.substring(0,1);
-        
+        int ligneEnCours = Integer.parseInt(s.substring(1));
+
+
         //Si le nombre ne correspond pas à la taille de la grille
-        if(ligne==0 || ligne>26){throw new IllegalArgumentException();}  
+        if(ligneEnCours==0 || ligneEnCours>26){throw new IllegalArgumentException();}  
         
         for(i=0;i<alphabeth.length-1;i++){
-        	if (colonneLettre==alphabeth[i]){ 
-        		this.ligne=ligne; 
-        		this.colonne=i+1;
+
+        	if (colonneLettre.equals(alphabeth[i])){ 
+        		this.ligne=ligneEnCours;
+        		this.colonne=i;
         		break;
         	}
         }
@@ -35,9 +39,10 @@ public class Coordonnee {
      
 	}
 	public String toString() {
+		
 		String[] alphabeth={"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};
 		String s="Coordonnées :";
-		s=s+alphabeth[this.colonne+1]+this.ligne+" Numérique :"+this.colonne+" "+this.ligne;
+		s=s+alphabeth[this.colonne-1]+this.ligne+" Numérique :"+this.colonne+" "+this.ligne;
 		return(s);
 	}
 	public int getLigne() {
@@ -69,6 +74,13 @@ public class Coordonnee {
 		}
 		else{return (this.colonne-c.colonne);}
 		
+	}
+
+	
+	public static void main(String[] args) {
+	        
+		Coordonnee res= new Coordonnee(2,4);
+		System.out.print(">" + res.toString() +"<");
 	}
 	
 }
