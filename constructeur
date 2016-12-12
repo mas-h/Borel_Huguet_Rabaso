@@ -1,0 +1,59 @@
+package batailleNavale;
+
+public class Coordonnee {
+	private int ligne;
+	private int colonne;
+	//*******************************************************************************//
+	//
+	//								Constructeurs
+	//
+	//*******************************************************************************//
+	
+	public Coordonnee(int ligne, int colonne) {
+		this.ligne=ligne;
+		this.colonne=colonne;
+	}
+	public Coordonnee(String s) {
+		
+		String[] alphabeth={"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};
+	    String[] coord = s.split(s);
+	    int numCol =27;
+	    int i =0;
+        ligne = Integer.parseInt(coord[1])+1;
+        String colonneLettre = coord[0];
+        
+        //Si le nombre ne correspond pas à la taille de la grille
+        if(ligne==0 || ligne>26){throw new IllegalArgumentException();}  
+        
+        for(i=0;i<alphabeth.length-1;i++){
+        	if (colonneLettre==alphabeth[i]){ 
+        		this.ligne=ligne; 
+        		this.colonne=i+1;
+        	}
+        }
+        //Si le caractère n'est pas dans le tableau donc non valide
+        if(i>26){throw new IllegalArgumentException();}  
+     
+	}
+	public String toString() {
+		
+	}
+	public int getLigne() {
+		return this.ligne;
+	}
+	public int getColonne() {
+		return this.colonne;
+	}
+	public boolean equals(Object obj) {
+		 //on verifie que l'objet est bien une coordonnes sinon msg d'erreur
+        if (! (obj instanceof Coordonnee))throw new IllegalArgumentException();
+        else{
+        	Coordonnee m = (Coordonnee) obj;
+        	if (this.ligne==m.ligne && this.colonne==m.colonne){return true;}
+        	else{return false;}
+        }
+	}
+	public boolean voisine(Coordonnee c) {
+		
+	}
+}
