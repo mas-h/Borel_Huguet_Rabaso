@@ -14,33 +14,23 @@ public class Coordonnee {
 		this.colonne=colonne;
 	}
 	public Coordonnee(String s) {
-		
-		String[] alphabeth={"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};
-	    int i =0;
-        String colonneLettre = s.substring(0,1);
+
+        char colonneLettre = s.charAt(0);
         int ligneEnCours = Integer.parseInt(s.substring(1));
 
-
         //Si le nombre ne correspond pas à la taille de la grille
-        if(ligneEnCours==0 || ligneEnCours>26){throw new IllegalArgumentException();}  
-        
-        for(i=0;i<alphabeth.length-1;i++){
-
-        	if (colonneLettre.equals(alphabeth[i])){ 
-        		this.ligne=ligneEnCours;
-        		this.colonne=i+1;
-        		break;
-        	}
-        }
+        if(ligneEnCours==0 || ligneEnCours>25){throw new IllegalArgumentException();}  
         //Si le caractère n'est pas dans le tableau donc non valide
-        if(i>=26){throw new IllegalArgumentException();}  
-     
+        if(colonneLettre<1 && colonneLettre>25) {throw new IllegalArgumentException();}
+        
+        this.ligne=ligneEnCours;
+		this.colonne=1+colonneLettre-'A';
+	 
 	}
 	public String toString() {
-		
-		String[] alphabeth={"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};
+		char t=(char) (this.colonne+'A'-1);
 		String s="Coordonnées :";
-		s=s+alphabeth[this.colonne-1]+this.ligne+" Numérique :"+this.colonne+" "+this.ligne;
+		s=s+t+this.ligne+" Numérique :"+this.colonne+" "+this.ligne;
 		return(s);
 	}
 	public int getLigne() {
@@ -77,9 +67,9 @@ public class Coordonnee {
 	
 	public static void main(String[] args) {
 	        
-		Coordonnee res= new Coordonnee("B4");
-		Coordonnee res2= new Coordonnee("C4");
-//		System.out.print(">" + res.toString() +"<");
+		Coordonnee res= new Coordonnee("D4");
+//		Coordonnee res2= new Coordonnee("C4");
+		System.out.print(">" + res.toString() +"<");
 //		System.out.print(">" + res.getLigne() +"<");
 //		System.out.print(">" + res.getColonne() +"<");
 //		System.out.print(">" + res.equals(res2) +"<");
