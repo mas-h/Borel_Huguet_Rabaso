@@ -6,37 +6,75 @@ public class Navire {
 	private Coordonnee[] partiesTouchees;
 	private int nbTouchees;
 	
-	
-	
 	public Navire(Coordonnee debut, int longueur, boolean estVertical) {
+		
+		//On verifie que debut est une coordonnées valide
+		 if (! (debut instanceof Coordonnee))throw new IllegalArgumentException();
+		if(longueur<0 ||longueur>25){throw new IllegalArgumentException();}
+		
 		this.debut=debut;
-		if (estVertical) { Coordonnee fin= new Coordonnee(debut,(debut.getLigne()+longueur));}
-		else{Coordonnee fin= new Coordonnee(debut,(debut.getColonne()+longueur)}
+		if (estVertical) { this.fin= new Coordonnee((debut.getColonne()+longueur),debut.getLigne());}
+		else{ this.fin= new Coordonnee(debut.getColonne(),(debut.getColonne()+longueur));}
+	}
+	
+	
+	
+	public String toString(){
+		String str="Navire (";
+		String inclinaison="";
+		int lg;
+		if(this.fin.getLigne()!=this.debut.getLigne()){
+			inclinaison="Vertical";
+			lg=(this.fin.getLigne()-this.debut.getLigne());
+			}
+		else{inclinaison="Horizontal";
+		lg=(this.fin.getColonne()-this.debut.getColonne());
+		}
+		str=str+this.debut+","+lg+","+inclinaison+")";
+		return(str);
 	}
 	
 	public Coordonnee getDebut() {	return this.debut;}
 	public Coordonnee getFin() {	return this.fin;	}
 	
 	public boolean contient(Coordonnee c) {
+		
+		//si le bateau est veritacal
+		if(this.fin.getLigne()!=this.debut.getLigne()){
+			for(int i=this.debut.getLigne();i<this.fin.getLigne();i++){
+				Coordonnee bateau= new Coordonnee(debut.getColonne(),i);
+				if(c.equals(bateau)){return true;}
+				
+			}
+		}
+		//si il est horizontal
+		else{
+			for(int i=this.debut.getColonne();i<this.fin.getColonne();i++){
+				Coordonnee bateau= new Coordonnee(i,debut.getLigne());
+				if(c.equals(bateau)){return true;}
+				
+			}
+		}
+		
 		return false;
 	}
+
 	public boolean touche(Navire n) {
 		return false;
 	}
 	public boolean chevauche(Navire n) {
 		return false;
 	}
-	public boolean recoitTir(Coordonnee c) {
-		return false;
-	}
-	public boolean estTouche(Coordonnee c) {
-		return false;
-	}
-	public boolean estTouche() {
-		return false;
-		
-	}
-	public boolean estCoule() {
-		return false;
+	public boolean recoitTir(Coordonnee c) {return false;}
+	public boolean estTouche(Coordonnee c) {return false;}
+	public boolean estTouche() {return false;}
+	public boolean estCoule() {return false;}
+	
+	
+	public static void main(String[] args) {
+		Coordonnee coord= new Coordonnee("D4");
+		Navire res= new Navire(coord, 4, false);
+//		Coordonnee res2= new Coordonnee("C4");
+		System.out.print(">" + res.toString() +"<");
 	}
 }
