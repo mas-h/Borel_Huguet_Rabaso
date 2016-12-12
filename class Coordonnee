@@ -1,7 +1,5 @@
 package batailleNavale;
 
-import tp7.MatriceCarree;
-
 public class Coordonnee {
 	private int ligne;
 	private int colonne;
@@ -30,7 +28,7 @@ public class Coordonnee {
 
         	if (colonneLettre.equals(alphabeth[i])){ 
         		this.ligne=ligneEnCours;
-        		this.colonne=i;
+        		this.colonne=i+1;
         		break;
         	}
         }
@@ -79,8 +77,14 @@ public class Coordonnee {
 	
 	public static void main(String[] args) {
 	        
-		Coordonnee res= new Coordonnee(2,4);
-		System.out.print(">" + res.toString() +"<");
+		Coordonnee res= new Coordonnee("B4");
+		Coordonnee res2= new Coordonnee("C4");
+//		System.out.print(">" + res.toString() +"<");
+//		System.out.print(">" + res.getLigne() +"<");
+//		System.out.print(">" + res.getColonne() +"<");
+//		System.out.print(">" + res.equals(res2) +"<");
+//		System.out.print(">" + res.voisine(res2) +"<");
+//	System.out.print(">" + res2.compareTo(res) +"<");
 	}
 	
 }
