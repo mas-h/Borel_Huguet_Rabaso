@@ -62,6 +62,15 @@ public class Coordonnee {
 			return true;
 		}
 		return false;
+	}
+	
+	
+	public int compareTo(Coordonnee c){
+		if(this.ligne<c.ligne ||this.ligne>c.ligne ){
+			return (this.ligne-c.ligne);
+		}
+		else{return (this.colonne-c.colonne);}
 		
 	}
+	
 }
