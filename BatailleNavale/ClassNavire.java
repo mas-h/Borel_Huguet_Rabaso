@@ -6,30 +6,19 @@ public class Navire {
 	private Coordonnee[] partiesTouchees;
 	private int nbTouchees;
 	
-	
-	
-//	public boolean caPasse (Navire c){
-//        if (debut.getColonne() == fin.getColonne()){ // Si le bateau est vertical 
-//        	// on regarde si les les coordonnees de fin ne depasse pas de la grille 
-//            if ((fin.getLigne())>25) return false;
-//            else  return true;
-//        }
-//        else  if (fin.getColonne()>'Z') return false;
-//        else  return true;
-//
-//    }    
 
 	public Navire(Coordonnee debut, int longueur, boolean estVertical) {
-		
-		
-
+	
 		//On verifie que debut est une coordonnées valide
 		 if (! (debut instanceof Coordonnee))throw new IllegalArgumentException();
 		if(longueur<0 ||longueur>25){throw new IllegalArgumentException();}
 		
-		//On verifie si il y a la place de mettre un bateau à cet endroit
-//		if (caPasse(this)== false){throw new IllegalArgumentException();}
 		
+		// on regarde si les les coordonnees de fin ne depasse pas de la grille 
+		if (estVertical) if ((debut.getLigne()+longueur-1)>25) throw new IllegalArgumentException();
+	    else  if (debut.getColonne()+longueur-1>'Z')throw new IllegalArgumentException();
+ 
+		  
 		this.debut=debut;
 		if (estVertical) { this.fin= new Coordonnee(debut.getColonne(),(debut.getLigne()+longueur-1)); }
 		else{this.fin= new Coordonnee((debut.getColonne()+longueur-1),debut.getLigne());}
@@ -37,8 +26,6 @@ public class Navire {
 		nbTouchees=0;
 		partiesTouchees = new Coordonnee [longueur];
 		
-//		System.out.print(">" + this.debut.toString() +"  "+debut.getColonne()+"  "+debut.getLigne()+"   "+ longueur+"<\n");
-//		System.out.print(">" + this.fin.toString() +"  "+fin.getColonne()+"  "+fin.getLigne()+"   "+ longueur+"<\n \n");
 	}
 	
 	
@@ -154,6 +141,8 @@ public class Navire {
 				}
 				return false;
 	}
+	
+	
 	public boolean recoitTir(Coordonnee c) {
 		if(this.contient(c)){
 			partiesTouchees[nbTouchees]=c;
@@ -163,8 +152,8 @@ public class Navire {
 		return false;
 	}
 	public boolean estTouche(Coordonnee c) {
-		for(int i=0;i<partiesTouchees.length;i++){
-			if(partiesTouchees[i].equals(c)){return true;}
+		for(int i=0;i<nbTouchees;i++){
+			if(c.equals(partiesTouchees[i])){return true;}
 		}
 		return false;
 	}
@@ -173,23 +162,34 @@ public class Navire {
 		return false;
 	}
 	public boolean estCoule() {
-		if(partiesTouchees[partiesTouchees.length-1]!=null)return false;
-		return true;
+		int longueur;
+		if (this.debut.getColonne()== this.fin.getColonne()) { // dans le cas où le navire est verticale
+			longueur= (this.fin.getLigne()-this.debut.getLigne())+1;
+		}
+		else {													// dans le cas où le navire est horizontale
+			longueur = (this.fin.getColonne()-this.debut.getColonne())+1;
+		}
+		return (this.nbTouchees == longueur); //à voir si on fait une fonction qui donne la longueur et définis si verticale ou horizontale 
+		
 	}
 	
 	
 	public static void main(String[] args) {
-		Coordonnee coord= new Coordonnee("B6");
-		Coordonnee coord2= new Coordonnee("B4");
+		Coordonnee coord= new Coordonnee("B2");
+		Coordonnee coord2= new Coordonnee("B3");
+//		Coordonnee tir= new Coordonnee("H3");
 		Navire PetitNavire= new Navire(coord, 4, true);
-		Navire PetitNavire2= new Navire(coord2, 4, true);
-		Navire PetitNavire3= new Navire(coord2, 5, true);
-//		System.out.print(">" + PetitNavire.toString() +"<\n");
-//		System.out.print(">" + PetitNavire2.toString() +"<\n");
+		Navire PetitNavire2= new Navire(coord2, 4, false);
+//		Navire PetitNavire3= new Navire(coord2, 5, true);
+		System.out.print(">" + PetitNavire.toString() +"<\n");
+		System.out.print(">" + PetitNavire2.toString() +"<\n");
 //		System.out.print(">" + PetitNavire3.toString() +"<\n");
 //		Coordonnee res2= new Coordonnee("C4");
 //		System.out.print(">" + PetitNavire.contient(tir) +"<");
 //		System.out.print(">" + PetitNavire.contient(PetitNavire2) +"<");
-		System.out.print(">" + PetitNavire.chevauche(PetitNavire2) +"<");
+//		System.out.print(">" + PetitNavire.chevauche(PetitNavire2) +"<");
+//		System.out.print(">" + PetitNavire.recoitTir(tir) +"<");
+//		System.out.print(">" + PetitNavire.estTouche(tir) +"<");
+//		System.out.print(">" + PetitNavire.estTouche() +"<");
 	}
 }
