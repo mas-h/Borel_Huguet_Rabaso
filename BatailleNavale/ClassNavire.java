@@ -13,6 +13,8 @@ public class Navire {
 		 if (! (debut instanceof Coordonnee))throw new IllegalArgumentException();
 		if(longueur<0 ||longueur>25){throw new IllegalArgumentException();}
 		
+		// On controle que le navire  soit créé avec une longueur d'au moins 2, permets aussi de vérifier qu'on ne puisse pas rentrer de valeurs négatives
+		if (longueur<2){throw new IllegalArgumentException();}
 		
 		// on regarde si les les coordonnees de fin ne depasse pas de la grille 
 		if (estVertical) if ((debut.getLigne()+longueur-1)>25) throw new IllegalArgumentException();
