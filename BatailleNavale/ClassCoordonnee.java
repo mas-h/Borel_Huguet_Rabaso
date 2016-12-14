@@ -1,6 +1,6 @@
 package batailleNavale;
 
-public class Coordonnee implements Comparable<Coordonnee> {
+public class Coordonnee {
 
 	private int ligne;
 	private int colonne;
@@ -42,7 +42,7 @@ public class Coordonnee implements Comparable<Coordonnee> {
 	}
 	public boolean equals(Object obj) {
 		 //on verifie que l'objet est bien une coordonnes sinon msg d'erreur
-        if (! (obj instanceof Coordonnee))throw new IllegalArgumentException();
+        if (! (obj instanceof Coordonnee))return false;
         else{
         	Coordonnee m = (Coordonnee) obj;
         	if (this.ligne==m.ligne && this.colonne==m.colonne){return true;}
