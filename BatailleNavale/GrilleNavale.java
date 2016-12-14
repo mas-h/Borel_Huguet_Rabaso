@@ -51,7 +51,7 @@ public class GrilleNavale {
 		String cases = "\t";
 		for (int i = 0; i < this.taille; i++) {
 			char c = (char) (i + 'A');
-			cases = cases + c + "\t";
+			cases = cases + " " + c + "\t";
 		}
 
 		for (int i = 1; i < this.taille + 1; i++) {
